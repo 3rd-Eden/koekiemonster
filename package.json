@@ -1,10 +1,10 @@
 {
-  "name": "cookie-monster",
-  "description": "Browserify-compatible module to get and set cookies in the browser",
-  "version": "0.2.0",
+  "name": "koekiemonster",
+  "description": "Browser and Nodejs compatible cookie interface",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/kahnjw/cookie-monster.git"
+    "url": "git://github.com/unshiftio/koekiemonster.git"
   },
   "scripts": {
     "test": "karma start"
@@ -16,10 +16,6 @@
     "browserify"
   ],
   "license": "MIT",
-  "author": {
-    "name": "Jarrod Kahn",
-    "email": "jarrod.kahn@gmail.com"
-  },
   "devDependencies": {
     "bindpolyfill": "0.0.0",
     "browserify": "^13.0.1",
