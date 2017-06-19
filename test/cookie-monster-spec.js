@@ -1,4 +1,4 @@
-var cookie = require('../index');
+var cookie = require('../index')(document);
 
 chai.should();
 
