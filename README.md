@@ -15,14 +15,24 @@ npm install --save koekiemonster
 ## API
 
 The module returns a single function that requires a reference to document. If
-you are in a node.js environment you can pass in a object instead and it should
+you are in a Node.js environment you can pass in a object instead and it should
 still function as intended.
 
 ```js
-var cookie = require('koekiemonster')(document);
+var cookie = require('koekiemonster')(document, { /* advanced options */ });
 var times = parseInt(cookie.getItem('times'), 10) || 0;
+
 cookie.setItem('times', times + 1);
 ```
+
+The first argument is a reference to the `document` so it can access `document.cookie`
+the second argument is an object for advanced options. This allows you to specify
+a custom `read` and `write` method for cookies.
+
+- `read` Called when it needs to read all cookies and expects an array to be
+  returned with `key=cookie` strings for each cookie.
+- `write` Called when a cookie needs to be stored, with `key`, `value` and `del`
+  as arguments. Assumes it returns the cookie string once it's stored.
 
 ### getItem(key)
 

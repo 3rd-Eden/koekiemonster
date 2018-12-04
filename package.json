@@ -4,29 +4,24 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/unshiftio/koekiemonster.git"
+    "url": "git://github.com/3rd-Eden/koekiemonster.git"
   },
   "scripts": {
-    "test": "karma start"
+    "test": "mocha test.js"
   },
   "main": "index.js",
   "keywords": [
     "cookie",
+    "koekje",
+    "koekie",
+    "monster",
+    "koekimonster",
     "browser",
     "browserify"
   ],
   "license": "MIT",
   "devDependencies": {
-    "bindpolyfill": "0.0.0",
-    "browserify": "^13.0.1",
-    "chai": "^3.5.0",
-    "karma": "^1.0.0",
-    "karma-browserify": "^5.0.5",
-    "karma-chai": "^0.1.0",
-    "karma-mocha": "^1.0.1",
-    "karma-mocha-reporter": "^2.0.4",
-    "karma-phantomjs-launcher": "^1.0.1",
-    "mocha": "^2.5.3",
-    "watchify": "^3.7.0"
+    "assume": "^2.1.0",
+    "mocha": "^5.2.0"
   }
 }
