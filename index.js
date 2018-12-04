@@ -79,7 +79,6 @@ module.exports = function bake(doc, options){
     if (typeof key !== 'string' || typeof value !== 'string') return false;
     if (!opts) opts = {};
 
-    // Creating new cookie string
     var cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value);
     if ('expires' in opts) cookie += '; expires=' + opts.expires;
     if ('path' in opts) cookie += '; path=' + opts.path;
