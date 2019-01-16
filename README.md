@@ -34,6 +34,18 @@ a custom `read` and `write` method for cookies.
 - `write` Called when a cookie needs to be stored, with `key`, `value` and `del`
   as arguments. Assumes it returns the cookie string once it's stored.
 
+It's worth noting that if you do not supply `document` as first argument we
+will attempt to feature detect the existance of `document` and `document.cookie`
+automatically and default to that. In the case where it's missing, we will
+default to an empty object so the following will work fine in a browser based
+environment:
+
+```js
+var cookie = require('koekiemonster')();
+
+console.log(cookie.getItem('items')); // should output the same as above.
+```
+
 ### getItem(key)
 
 Return the contents of a cookie for the given key name.

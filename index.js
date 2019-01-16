@@ -8,7 +8,18 @@
  * @public
  */
 module.exports = function bake(doc, options){
-  if (!doc) doc = {};
+  //
+  // We want to provide a sane out of the box DX, and the most common use
+  // case would be loading cookies from the browser's `document.cookie`
+  // location. So when no document is provided, we should attempt to
+  // default to that without breaking any native environment.
+  //
+  if (!doc) {
+    doc = 'undefined' !== typeof document && 'string' === typeof document.cookie
+    ? document.cookie
+    : {};
+  }
+
   if (!options) options = {};
   if (typeof doc === 'string') doc = { cookie: doc };
   else if (typeof doc.cookie !== 'string') doc.cookie = '';

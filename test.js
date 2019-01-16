@@ -86,5 +86,15 @@ describe('koekiemonster', function () {
       cookie.setItem('key', 'val=ue');
       assume(cookie.getItem('key')).equals('val=ue');
     });
+
+    it('defaults to `document.cookie`', function () {
+      global.document = {
+        cookie: 'whats=up'
+      };
+
+      const noms = koekie();
+
+      assume(noms.getItem('whats')).equals('up');
+    });
   });
 });
