@@ -16,7 +16,7 @@ module.exports = function bake(doc, options){
   //
   if (!doc) {
     doc = 'undefined' !== typeof document && 'string' === typeof document.cookie
-    ? document.cookie
+    ? document
     : {};
   }
 
