@@ -41,6 +41,12 @@ describe('koekiemonster', function () {
       assume(cookie.getItem('another')).equals('value');
     });
 
+    it('correctly handles = values in cookies', function () {
+      doc.cookie = 'data=id=300&param=1';
+
+      assume(cookie.getItem('data')).equals('id=300&param=1');
+    });
+
     it('calls the `read` option', function () {
       cookie = koekie(doc, {
         read: function read() {

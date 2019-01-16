@@ -59,10 +59,11 @@ module.exports = function bake(doc, options){
     var cookies = read();
 
     for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].split('=');
-      var name = decodeURIComponent(cookie[0]);
+      var cookie = cookies[i];
+      var index = cookie.indexOf('=');
+      var name = decodeURIComponent(cookie.slice(0, index));
 
-      if (name === key) return decodeURIComponent(cookie[1]);
+      if (name === key) return decodeURIComponent(cookie.slice(index + 1));
     }
   }
 
