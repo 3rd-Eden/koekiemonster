@@ -47,15 +47,14 @@ module.exports = function bake(doc, options){
   /**
    * Write a new cookie.
    *
-   * @param {String} name Name of the cookie
    * @param {String} cookie Cookie value.
-   * @param {Boolean} remove Remove cookie.
+   * @param {Object} meta Additional cookie information.
    * @returns {String}
    * @private
    */
-  function write(name, cookie, remove) {
+  function write(cookie, meta) {
     return options.write
-    ? options.write(name, cookie, remove)
+    ? options.write(cookie, meta)
     : (doc.cookie = cookie);
   }
 
@@ -91,13 +90,22 @@ module.exports = function bake(doc, options){
     if (typeof key !== 'string' || typeof value !== 'string') return false;
     if (!opts) opts = {};
 
-    var cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+    value = encodeURIComponent(value);
+    key = encodeURIComponent(key);
+
+    var cookie = key + '=' + value;
+
     if ('expires' in opts) cookie += '; expires=' + opts.expires;
     if ('path' in opts) cookie += '; path=' + opts.path;
     if ('domain' in opts) cookie += '; domain=' + opts.domain;
     if (opts.secure) cookie += '; secure';
 
-    return write(key, cookie);
+    return write(cookie, {
+      remove: false,
+      value: value,
+      opts: opts,
+      key: key,
+    });
   }
 
   /**
@@ -108,7 +116,12 @@ module.exports = function bake(doc, options){
    * @public
    */
   function removeItem(key) {
-    return write(key, key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;', true);
+    return write(key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;', {
+      remove: true,
+      value: '',
+      opts: {},
+      key: key
+    });
   }
 
   /**

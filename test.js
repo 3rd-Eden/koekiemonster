@@ -19,9 +19,16 @@ describe('koekiemonster', function () {
 
     it('calls the `write` option', function (next) {
       cookie = koekie(doc, {
-        write: function write(key, value) {
-          assume(key).equals('what');
+        write: function write(value, meta) {
           assume(value).equals('what=is%20up; path=/; secure');
+
+          assume(meta).is.a('object');
+          assume(meta.key).equals('what');
+          assume(meta.value).equals('is%20up');
+
+          assume(meta.opts).is.a('object');
+          assume(meta.opts.path).equals('/');
+          assume(meta.opts.secure).equals(true);
 
           next();
         }
@@ -68,10 +75,13 @@ describe('koekiemonster', function () {
 
     it('call the `write` option with a remove argument', function (next) {
       cookie = koekie(doc, {
-        write: function write(key, value, remove) {
-          assume(key).equals('what');
-          assume(remove).equals(true);
-          assume(value).equals('what=;expires=Thu, 01 Jan 1970 00:00:01 GMT;');
+        write: function write(cookie, meta) {
+          assume(cookie).equals('what=;expires=Thu, 01 Jan 1970 00:00:01 GMT;');
+
+          assume(meta).is.a('object');
+          assume(meta.value).equals('');
+          assume(meta.remove).equals(true);
+          assume(meta.key).equals('what');
 
           next();
         }

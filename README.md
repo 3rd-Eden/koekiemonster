@@ -31,8 +31,13 @@ a custom `read` and `write` method for cookies.
 
 - `read` Called when it needs to read all cookies and expects an array to be
   returned with `key=cookie` strings for each cookie.
-- `write` Called when a cookie needs to be stored, with `key`, `value` and `del`
-  as arguments. Assumes it returns the cookie string once it's stored.
+- `write` Called when a cookie needs to be stored, with `cookie`, and `meta`
+  as arguments. Assumes it returns the cookie string once it's stored. The `meta`
+  is an object that contains the following properties:
+  - `remove` Boolean indicating if this is a removal request.
+  - `value` Cookie value.
+  - `key` Key of the cookie.
+  - `opts` Original supplied options.
 
 It's worth noting that if you do not supply `document` as first argument we
 will attempt to feature detect the existance of `document` and `document.cookie`
