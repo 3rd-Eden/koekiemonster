@@ -33,6 +33,14 @@ module.exports = function bake(doc, options){
   var splitter = /;\s*/;
 
   /**
+   * Date used to removed cookies.
+   *
+   * @type {String}
+   * @private
+   */
+  var remove = 'Thu, 01 Jan 1970 00:00:01 GMT';
+
+  /**
    * Read out all the cookies.
    *
    * @returns {Array}
@@ -82,7 +90,7 @@ module.exports = function bake(doc, options){
    *
    * @param {String} key Name of the cookie.
    * @param {String} value Data for the cookie.
-   * @param {Object} opts Options for the cookie setting
+   * @param {Object} opts Options for the cookie setting.
    * @returns {String} Cookie.
    * @public
    */
@@ -101,10 +109,10 @@ module.exports = function bake(doc, options){
     if (opts.secure) cookie += '; secure';
 
     return write(cookie, {
-      remove: false,
+      remove: opts.expires === remove,
       value: value,
       opts: opts,
-      key: key,
+      key: key
     });
   }
 
@@ -112,16 +120,15 @@ module.exports = function bake(doc, options){
    * Remove a cookie.
    *
    * @param {String} key Name of the cookie.
+   * @param {Object} opts Options for the cookie setting.
    * @returns {Undefined} Void.
    * @public
    */
-  function removeItem(key) {
-    return write(key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;', {
-      remove: true,
-      value: '',
-      opts: {},
-      key: key
-    });
+  function removeItem(key, opts) {
+    if (!opts) opts = {};
+
+    opts.expires = remove;
+    return setItem(key, '', opts);
   }
 
   /**

@@ -76,7 +76,7 @@ describe('koekiemonster', function () {
     it('call the `write` option with a remove argument', function (next) {
       cookie = koekie(doc, {
         write: function write(cookie, meta) {
-          assume(cookie).equals('what=;expires=Thu, 01 Jan 1970 00:00:01 GMT;');
+          assume(cookie).equals('what=; expires=Thu, 01 Jan 1970 00:00:01 GMT');
 
           assume(meta).is.a('object');
           assume(meta.value).equals('');
@@ -88,6 +88,26 @@ describe('koekiemonster', function () {
       });
 
       cookie.removeItem('what');
+    });
+
+    it('calls the `write` option with all the opts', function (next) {
+      cookie = koekie(doc, {
+        write: function write(cookie, meta) {
+          assume(cookie).equals('what=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/foo; domain=example.com');
+
+          assume(meta).is.a('object');
+          assume(meta.value).equals('');
+          assume(meta.remove).equals(true);
+          assume(meta.key).equals('what');
+          assume(meta.opts).is.a('object');
+          assume(meta.opts.path).equals('/foo');
+          assume(meta.opts.domain).equals('example.com');
+
+          next();
+        }
+      });
+
+      cookie.removeItem('what', { path: '/foo', domain: 'example.com' });
     });
   });
 

@@ -65,9 +65,10 @@ the `opts` object to configure the cookie string.
 - `domain` Domain of the cookie.
 - `secure` Should the cookie be secure only.
 
-### removeItem(key)
+### removeItem(key, opts)
 
-Remove a cookie with the name of the key.
+Remove a cookie with the name of the key. You can use the same `opts` as the
+`setItem` method.
 
 #### clear
 
