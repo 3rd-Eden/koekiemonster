@@ -1,5 +1,10 @@
 # CHANGELOG
 
+### 2.2.1
+
+- The `removeItem` method now correctly accepts the `opts` so we can
+  remove cookies for a given path and or domain combination.
+
 ### 2.2.0
 
 - With the release of 2.0.0 we introduced custom read/write methods. These
