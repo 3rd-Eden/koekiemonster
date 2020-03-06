@@ -8,6 +8,10 @@
  * @public
  */
 module.exports = function bake(doc, options){
+  var str = 'string';               // Reduce bytes by caching str.
+  var decode = decodeURIComponent;  // Reduce lookups by smaller names.
+  var encode = encodeURIComponent;  // Same as above.
+
   //
   // We want to provide a sane out of the box DX, and the most common use
   // case would be loading cookies from the browser's `document.cookie`
@@ -15,14 +19,14 @@ module.exports = function bake(doc, options){
   // default to that without breaking any native environment.
   //
   if (!doc) {
-    doc = 'undefined' !== typeof document && 'string' === typeof document.cookie
+    doc = 'undefined' !== typeof document && str === typeof document.cookie
     ? document
     : {};
   }
 
   if (!options) options = {};
-  if (typeof doc === 'string') doc = { cookie: doc };
-  else if (typeof doc.cookie !== 'string') doc.cookie = '';
+  if (typeof doc === str) doc = { cookie: doc };
+  else if (typeof doc.cookie !== str) doc.cookie = '';
 
   /**
    * Regular Expression that is used to split cookies into individual items.
@@ -79,9 +83,9 @@ module.exports = function bake(doc, options){
     for (var i = 0; i < cookies.length; i++) {
       var cookie = cookies[i];
       var index = cookie.indexOf('=');
-      var name = decodeURIComponent(cookie.slice(0, index));
+      var name = decode(cookie.slice(0, index));
 
-      if (name === key) return decodeURIComponent(cookie.slice(index + 1));
+      if (name === key) return decode(cookie.slice(index + 1));
     }
   }
 
@@ -95,11 +99,11 @@ module.exports = function bake(doc, options){
    * @public
    */
   function setItem(key, value, opts) {
-    if (typeof key !== 'string' || typeof value !== 'string') return false;
+    if (typeof key !== str || typeof value !== str) return false;
     if (!opts) opts = {};
 
-    value = encodeURIComponent(value);
-    key = encodeURIComponent(key);
+    value = encode(value);
+    key = encode(key);
 
     var cookie = key + '=' + value;
 
@@ -141,7 +145,7 @@ module.exports = function bake(doc, options){
     var cookies = read();
 
     for (var i = 0; i < cookies.length; i++) {
-      removeItem(decodeURIComponent(cookies[i].split('=')[0]));
+      removeItem(decode(cookies[i].split('=')[0]));
     }
   }
 
