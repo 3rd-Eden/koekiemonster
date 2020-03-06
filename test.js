@@ -76,7 +76,7 @@ describe('koekiemonster', function () {
     it('call the `write` option with a remove argument', function (next) {
       cookie = koekie(doc, {
         write: function write(cookie, meta) {
-          assume(cookie).equals('what=; expires=Thu, 01 Jan 1970 00:00:01 GMT');
+          assume(cookie).equals('what=; expires=Thu, 01 Jan 1970 00:00:00 GMT');
 
           assume(meta).is.a('object');
           assume(meta.value).equals('');
@@ -93,7 +93,7 @@ describe('koekiemonster', function () {
     it('calls the `write` option with all the opts', function (next) {
       cookie = koekie(doc, {
         write: function write(cookie, meta) {
-          assume(cookie).equals('what=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/foo; domain=example.com');
+          assume(cookie).equals('what=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/foo; domain=example.com');
 
           assume(meta).is.a('object');
           assume(meta.value).equals('');

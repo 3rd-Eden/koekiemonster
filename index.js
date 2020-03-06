@@ -38,7 +38,7 @@ module.exports = function bake(doc, options){
    * @type {String}
    * @private
    */
-  var remove = 'Thu, 01 Jan 1970 00:00:01 GMT';
+  var remove = new Date(0).toUTCString();
 
   /**
    * Read out all the cookies.
